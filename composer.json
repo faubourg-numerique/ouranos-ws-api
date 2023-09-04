@@ -1,0 +1,24 @@
+{
+    "name": "pierre-josselin/ouranos-ws-api",
+    "authors": [
+        {
+            "name": "Pierre Josselin"
+        }
+    ],
+    "repositories": [
+        {
+            "url": "https://github.com/faubourg-numerique/ishare-tools-for-i4trust-php.git",
+            "type": "git"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.4",
+        "bramus/router": "^1.6",
+        "respect/validation": "^2.2",
+        "ramsey/uuid": "^4.2",
+        "defuse/php-encryption": "^2.3",
+        "archtechx/enums": "^0.3.0",
+        "faubourg-numerique/ishare-tools-for-i4trust-php": "^1.0",
+        "google/apiclient": "^2.0"
+    }
+}

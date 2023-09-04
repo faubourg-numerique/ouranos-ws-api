@@ -1,0 +1,6 @@
+/logs/*
+!/logs/.gitkeep
+/API/Modules/*
+!/API/Modules/.gitkeep
+/vendor/
+.env
