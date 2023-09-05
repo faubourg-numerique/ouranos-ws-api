@@ -141,6 +141,30 @@ API::router()->mount("/api", function () {
                 API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\ContractDetailController@destroy");
             });
 
+            API::router()->mount("/data-services", function () {
+                API::router()->get("/", "Modules\\I4Trust\\Controllers\\DataServiceController@index");
+                API::router()->post("/", "Modules\\I4Trust\\Controllers\\DataServiceController@store");
+                API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceController@show");
+                API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceController@update");
+                API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceController@destroy");
+            });
+
+            API::router()->mount("/data-service-actions", function () {
+                API::router()->get("/", "Modules\\I4Trust\\Controllers\\DataServiceActionController@index");
+                API::router()->post("/", "Modules\\I4Trust\\Controllers\\DataServiceActionController@store");
+                API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceActionController@show");
+                API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceActionController@update");
+                API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceActionController@destroy");
+            });
+
+            API::router()->mount("/data-service-properties", function () {
+                API::router()->get("/", "Modules\\I4Trust\\Controllers\\DataServicePropertyController@index");
+                API::router()->post("/", "Modules\\I4Trust\\Controllers\\DataServicePropertyController@store");
+                API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServicePropertyController@show");
+                API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServicePropertyController@update");
+                API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServicePropertyController@destroy");
+            });
+
             API::router()->mount("/authorization-registry-bridge", function () {
                 API::router()->post("/create-policy", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryBridgeController@createPolicy");
             });
