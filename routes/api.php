@@ -173,6 +173,14 @@ API::router()->mount("/api", function () {
                 API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServicePropertyController@destroy");
             });
 
+            API::router()->mount("/data-service-offers", function () {
+                API::router()->get("/", "Modules\\I4Trust\\Controllers\\DataServiceOfferController@index");
+                API::router()->post("/", "Modules\\I4Trust\\Controllers\\DataServiceOfferController@store");
+                API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceOfferController@show");
+                API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceOfferController@update");
+                API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceOfferController@destroy");
+            });
+
             API::router()->mount("/authorization-registry-bridge", function () {
                 API::router()->post("/create-policy", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryBridgeController@createPolicy");
             });
