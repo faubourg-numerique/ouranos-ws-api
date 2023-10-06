@@ -2,6 +2,7 @@
 
 namespace API\StaticClasses;
 
+use API\Enums\AuthorizationMode;
 use API\Enums\ContextBrokerImplementationName;
 use API\Enums\DataModelGroup;
 use API\Enums\IdentityManagerGrantType;
@@ -12,6 +13,7 @@ use API\Enums\NgsiLdPropertyValueType;
 use API\Enums\Scheme;
 use API\Enums\StandardDataModelType;
 use API\Enums\TemporalService;
+use API\Enums\VCVerifierImplementationName;
 use Respect\Validation\Rules;
 
 final class Validation
@@ -106,6 +108,22 @@ final class Validation
         return new Rules\AllOf(
             new Rules\StringType(),
             new Rules\In(IdentityManagerImplementationName::values(), true)
+        );
+    }
+
+    public static function vcVerifierImplementationNameValidator(): Rules\AllOf
+    {
+        return new Rules\AllOf(
+            new Rules\StringType(),
+            new Rules\In(VCVerifierImplementationName::values(), true)
+        );
+    }
+
+    public static function authorizationModeValidator(): Rules\AllOf
+    {
+        return new Rules\AllOf(
+            new Rules\StringType(),
+            new Rules\In(AuthorizationMode::values(), true)
         );
     }
 
@@ -445,11 +463,22 @@ final class Validation
         ];
 
         if ($data["authorizationRequired"]) {
-            $keys[] = new Rules\Key("hasIdentityManager", self::urnValidator(), true);
-            $keys[] = new Rules\Key("hasIdentityManagerGrant", self::urnValidator(), true);
+            (new Rules\Key("authorizationMode", self::authorizationModeValidator(), true))->assert($data);
+
+            if ($data["authorizationMode"] === AuthorizationMode::OAuth2->value) {
+                $keys[] = new Rules\Key("hasIdentityManager", self::urnValidator(), true);
+                $keys[] = new Rules\Key("hasIdentityManagerGrant", self::urnValidator(), true);
+                $keys[] = new Rules\Key("hasVCVerifier", self::nullValidator(), false);
+            } else if ($data["authorizationMode"] === AuthorizationMode::SIOP2->value) {
+                $keys[] = new Rules\Key("hasIdentityManager", self::nullValidator(), false);
+                $keys[] = new Rules\Key("hasIdentityManagerGrant", self::nullValidator(), false);
+                $keys[] = new Rules\Key("hasVCVerifier", self::urnValidator(), true);
+            }
         } else {
+            $keys[] = new Rules\Key("authorizationMode", self::nullValidator(), false);
             $keys[] = new Rules\Key("hasIdentityManager", self::nullValidator(), false);
             $keys[] = new Rules\Key("hasIdentityManagerGrant", self::nullValidator(), false);
+            $keys[] = new Rules\Key("hasVCVerifier", self::nullValidator(), false);
         }
 
         $validator = new Rules\KeySet(...$keys);
@@ -590,6 +619,29 @@ final class Validation
     public static function validatePositionInChart(mixed $data): void
     {
         $validator = self::positionInChartValidator();
+        $validator->assert($data);
+    }
+
+    public static function validateVCVerifier(mixed $data): void
+    {
+        (new Rules\Key("scheme", self::schemeValidator(), true))->assert($data);
+
+        $keys = [
+            new Rules\Key("name", self::nameValidator(), true),
+            new Rules\Key("description", new Rules\Nullable(self::descriptionValidator()), false),
+            new Rules\Key("scheme", self::schemeValidator(), true),
+            new Rules\Key("host", self::hostValidator(), true),
+            new Rules\Key("port", self::portValidator(), true),
+            new Rules\Key("path", new Rules\Nullable(self::pathValidator()), false),
+            new Rules\Key("implementationName", self::vcVerifierImplementationNameValidator(), true),
+            new Rules\Key("implementationVersion", self::versionValidator(), true)
+        ];
+
+        if ($data["scheme"] === Scheme::Https->value) {
+            $keys[] = new Rules\Key("disableCertificateVerification", self::booleanValidator(), true);
+        }
+
+        $validator = new Rules\KeySet(...$keys);
         $validator->assert($data);
     }
 }

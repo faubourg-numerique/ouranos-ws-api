@@ -60,6 +60,14 @@ API::router()->mount("/api", function () {
         API::router()->delete("/([^/]+)", "Controllers\\WorkspaceController@destroy");
     });
 
+    API::router()->mount("/vc-verifiers", function () {
+        API::router()->get("/", "Controllers\\VCVerifierController@index");
+        API::router()->post("/", "Controllers\\VCVerifierController@store");
+        API::router()->get("/([^/]+)", "Controllers\\VCVerifierController@show");
+        API::router()->put("/([^/]+)", "Controllers\\VCVerifierController@update");
+        API::router()->delete("/([^/]+)", "Controllers\\VCVerifierController@destroy");
+    });
+
     if (I4TRUST_MODULE_ENABLED) {
         API::router()->mount("/authorization-registries", function () {
             API::router()->get("/", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryController@index");
