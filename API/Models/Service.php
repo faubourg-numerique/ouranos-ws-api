@@ -16,6 +16,7 @@ class Service extends Model
     public ?string $description = null;
     public bool $authorizationRequired;
     public ?string $authorizationMode = null;
+    public ?string $clientId = null;
     public string $hasContextBroker;
     public ?string $hasIdentityManager = null;
     public ?string $hasIdentityManagerGrant = null;
@@ -33,6 +34,9 @@ class Service extends Model
         $entity->setProperty("authorizationRequired", $this->authorizationRequired);
         if (!is_null($this->authorizationMode)) {
             $entity->setProperty("authorizationMode", $this->authorizationMode);
+        }
+        if (!is_null($this->clientId)) {
+            $entity->setProperty("clientId", $this->clientId);
         }
         $entity->setRelationship("hasContextBroker", $this->hasContextBroker);
         if (!is_null($this->hasIdentityManager)) {
@@ -57,6 +61,9 @@ class Service extends Model
         $this->authorizationRequired = $entity->getProperty("authorizationRequired");
         if ($entity->propertyExists("authorizationMode")) {
             $this->authorizationMode = $entity->getProperty("authorizationMode");
+        }
+        if ($entity->propertyExists("clientId")) {
+            $this->clientId = $entity->getProperty("clientId");
         }
         $this->hasContextBroker = $entity->getRelationship("hasContextBroker");
         if ($entity->relationshipExists("hasIdentityManager")) {

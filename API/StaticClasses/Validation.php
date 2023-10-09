@@ -467,16 +467,19 @@ final class Validation
             $keys[] = new Rules\Key("authorizationMode", self::authorizationModeValidator(), true);
 
             if ($data["authorizationMode"] === AuthorizationMode::OAuth2->value) {
+                $keys[] = new Rules\Key("clientId", self::nullValidator(), false);
                 $keys[] = new Rules\Key("hasIdentityManager", self::urnValidator(), true);
                 $keys[] = new Rules\Key("hasIdentityManagerGrant", self::urnValidator(), true);
                 $keys[] = new Rules\Key("hasVCVerifier", self::nullValidator(), false);
             } else if ($data["authorizationMode"] === AuthorizationMode::SIOP2->value) {
+                $keys[] = new Rules\Key("clientId", self::clientIdValidator(), true);
                 $keys[] = new Rules\Key("hasIdentityManager", self::nullValidator(), false);
                 $keys[] = new Rules\Key("hasIdentityManagerGrant", self::nullValidator(), false);
                 $keys[] = new Rules\Key("hasVCVerifier", self::urnValidator(), true);
             }
         } else {
             $keys[] = new Rules\Key("authorizationMode", self::nullValidator(), false);
+            $keys[] = new Rules\Key("clientId", self::nullValidator(), false);
             $keys[] = new Rules\Key("hasIdentityManager", self::nullValidator(), false);
             $keys[] = new Rules\Key("hasIdentityManagerGrant", self::nullValidator(), false);
             $keys[] = new Rules\Key("hasVCVerifier", self::nullValidator(), false);
