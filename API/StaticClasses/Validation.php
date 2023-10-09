@@ -464,6 +464,7 @@ final class Validation
 
         if ($data["authorizationRequired"]) {
             (new Rules\Key("authorizationMode", self::authorizationModeValidator(), true))->assert($data);
+            $keys[] = new Rules\Key("authorizationMode", self::authorizationModeValidator(), true);
 
             if ($data["authorizationMode"] === AuthorizationMode::OAuth2->value) {
                 $keys[] = new Rules\Key("hasIdentityManager", self::urnValidator(), true);

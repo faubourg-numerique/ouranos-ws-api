@@ -15,9 +15,11 @@ class Service extends Model
     public string $name;
     public ?string $description = null;
     public bool $authorizationRequired;
+    public ?string $authorizationMode = null;
     public string $hasContextBroker;
     public ?string $hasIdentityManager = null;
     public ?string $hasIdentityManagerGrant = null;
+    public ?string $hasVCVerifier = null;
 
     public function toEntity(): Entity
     {
@@ -30,7 +32,7 @@ class Service extends Model
         }
         $entity->setProperty("authorizationRequired", $this->authorizationRequired);
         if (!is_null($this->authorizationMode)) {
-            $entity->setRelationship("authorizationMode", $this->authorizationMode);
+            $entity->setProperty("authorizationMode", $this->authorizationMode);
         }
         $entity->setRelationship("hasContextBroker", $this->hasContextBroker);
         if (!is_null($this->hasIdentityManager)) {
@@ -53,8 +55,8 @@ class Service extends Model
             $this->description = $entity->getProperty("description");
         }
         $this->authorizationRequired = $entity->getProperty("authorizationRequired");
-        if ($entity->relationshipExists("authorizationMode")) {
-            $this->authorizationMode = $entity->getRelationship("authorizationMode");
+        if ($entity->propertyExists("authorizationMode")) {
+            $this->authorizationMode = $entity->getProperty("authorizationMode");
         }
         $this->hasContextBroker = $entity->getRelationship("hasContextBroker");
         if ($entity->relationshipExists("hasIdentityManager")) {
