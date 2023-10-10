@@ -212,6 +212,11 @@ API::router()->mount("/api", function () {
         API::router()->get("/permissions", "Controllers\\AuthorizationController@permissions");
     });
 
+    API::router()->mount("/siop2", function () {
+        API::router()->get("/callback", "Controllers\\SIOP2Controller@callback");
+        API::router()->get("/poll", "Controllers\\SIOP2Controller@poll");
+    });
+
     if (DEVELOPMENT) {
         API::router()->mount("/seeders", function () {
             API::router()->mount("/test-seeder", function () {

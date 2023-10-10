@@ -12,7 +12,11 @@ final class AuthorizationMiddleware
     {
         global $authorizationIdentityManager;
 
-        if (str_ends_with(API::request()->getPath(), "/authorization-registry-bridge/create-policy")) {
+        if (
+            str_ends_with(API::request()->getPath(), "/authorization-registry-bridge/create-policy") ||
+            str_ends_with(API::request()->getPath(), "/siop2/callback") ||
+            str_ends_with(API::request()->getPath(), "/siop2/poll")
+        ) {
             return;
         }
 

@@ -9,4 +9,6 @@ enum MimeType: string
     use Values;
 
     case Json = "application/json";
+    case XWWWFormUrlEncoded = "application/x-www-form-urlencoded";
+    case TextPlain = "text/plain";
 }
