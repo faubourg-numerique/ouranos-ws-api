@@ -56,7 +56,7 @@ class TemporalEntityPropertyController extends Controller
         $temporalServiceIdentityManager = null;
         $temporalServiceIdentityManagerGrant = null;
 
-        if ($temporalService->temporalServiceType === TemporalService::Mintaka->value && $temporalService->authorizationRequired) {
+        if ($temporalService->temporalServiceType === TemporalService::Mintaka->value && $temporalService->authorizationRequired && (!$temporalService->authorizationMode || $temporalService->authorizationMode == "oauth2")) {
             $temporalServiceIdentityManager = $identityManagerManager->readOne($temporalService->hasIdentityManager);
             $temporalServiceIdentityManagerGrant = $identityManagerGrantManager->readOne($temporalService->hasIdentityManagerGrant);
         }

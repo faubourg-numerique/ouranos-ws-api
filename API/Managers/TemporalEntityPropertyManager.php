@@ -36,12 +36,21 @@ class TemporalEntityPropertyManager
         $this->workspace = $workspace;
 
         if ($service->authorizationRequired) {
-            $accessToken = Authorization::getAccessToken($identityManager, $identityManagerGrant);
-            $this->authorizationHeader = "Bearer {$accessToken}";
+            if (isset($service->authorizationMode) && $service->authorizationMode == "siop2") {
+                $this->authorizationHeader = API::request()->getHeader("Gateway-Authorization");
+            } else {
+                $accessToken = Authorization::getAccessToken($identityManager, $identityManagerGrant);
+                $this->authorizationHeader = "Bearer {$accessToken}";
+            }
         }
-        if ($temporalService->temporalServiceType === \API\Enums\TemporalService::Mintaka->value && $temporalService->authorizationRequired) {
-            $accessToken = Authorization::getAccessToken($temporalServiceIdentityManager, $temporalServiceIdentityManagerGrant);
-            $this->temporalServiceAuthorizationHeader = "Bearer {$accessToken}";
+
+        if ($temporalService->authorizationRequired) {
+            if ($temporalService->authorizationMode && $temporalService->authorizationMode == "siop2") {
+                $this->temporalServiceAuthorizationHeader = API::request()->getHeader("Gateway-Authorization");
+            } else {
+                $accessToken = Authorization::getAccessToken($temporalServiceIdentityManager, $temporalServiceIdentityManagerGrant);
+                $this->temporalServiceAuthorizationHeader = "Bearer {$accessToken}";
+            }
         }
     }
 

@@ -138,7 +138,7 @@ class EntityController extends Controller
         $identityManager = null;
         $identityManagerGrant = null;
 
-        if ($service->authorizationRequired) {
+        if ($service->authorizationRequired && (!$service->authorizationMode || $service->authorizationMode == "oauth2")) {
             $identityManager = $identityManagerManager->readOne($service->hasIdentityManager);
             $identityManagerGrant = $identityManagerGrantManager->readOne($service->hasIdentityManagerGrant);
         }

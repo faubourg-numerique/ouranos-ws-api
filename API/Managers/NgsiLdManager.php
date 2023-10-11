@@ -8,6 +8,7 @@ use API\Models\IdentityManager;
 use API\Models\IdentityManagerGrant;
 use API\Models\Service;
 use API\Models\Workspace;
+use Core\API;
 use Core\Manager;
 
 abstract class NgsiLdManager extends Manager
@@ -24,8 +25,12 @@ abstract class NgsiLdManager extends Manager
         $this->workspace = $workspace;
 
         if ($service->authorizationRequired) {
-            $accessToken = Authorization::getAccessToken($identityManager, $identityManagerGrant);
-            $this->authorizationHeader = "Bearer {$accessToken}";
+            if ($service->authorizationMode && $service->authorizationMode == "siop2") {
+                $this->authorizationHeader = API::request()->getHeader("Gateway-Authorization");
+            } else {
+                $accessToken = Authorization::getAccessToken($identityManager, $identityManagerGrant);
+                $this->authorizationHeader = "Bearer {$accessToken}";
+            }
         }
     }
 }

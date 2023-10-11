@@ -18,7 +18,7 @@ $dotenv->required("DATA_MODELS_DIRECTORY_PATH")->notEmpty();
 API::response()->setHeader("Access-Control-Allow-Origin", $_ENV["ACCESS_CONTROL_ALLOW_ORIGIN_HEADER"]);
 
 if (API::request()->getMethod() === "OPTIONS") {
-    API::response()->setHeader("Access-Control-Allow-Headers", "Authorization, Accept, Content-Type");
+    API::response()->setHeader("Access-Control-Allow-Headers", "Authorization, Accept, Content-Type, Gateway-Authorization");
     API::response()->setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     API::response()->setStatusCode(HttpResponseStatusCodes::HTTP_OK);
     API::response()->send();
