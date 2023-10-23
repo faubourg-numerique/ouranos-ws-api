@@ -97,6 +97,7 @@ API::router()->mount("/api", function () {
     API::router()->mount("/workspace/([^/]+)", function () {
         API::router()->mount("/data-model", function () {
             API::router()->post("/generate", "Controllers\\DataModelController@generate");
+            API::router()->post("/auto-discover", "Controllers\\DataModelController@autoDiscover");
         });
 
         API::router()->mount("/types", function () {

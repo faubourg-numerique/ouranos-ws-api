@@ -42,7 +42,7 @@ class Entity
         $this->type = $type;
     }
 
-    protected function isAttributeValid(mixed $attribute): bool
+    public function isAttributeValid(mixed $attribute): bool
     {
         if (!isset($attribute)) {
             return false;
@@ -101,19 +101,19 @@ class Entity
         return true;
     }
 
-    protected function isAttributeProperty(array $attribute): bool
+    public function isAttributeProperty(array $attribute): bool
     {
         $ngsiLdAttributeType = NgsiLdAttributeType::tryFrom($attribute["type"]);
         return $ngsiLdAttributeType === NgsiLdAttributeType::Property;
     }
 
-    protected function isAttributeGeoProperty(array $attribute): bool
+    public function isAttributeGeoProperty(array $attribute): bool
     {
         $ngsiLdAttributeType = NgsiLdAttributeType::tryFrom($attribute["type"]);
         return $ngsiLdAttributeType === NgsiLdAttributeType::GeoProperty;
     }
 
-    protected function isAttributeRelationship(array $attribute): bool
+    public function isAttributeRelationship(array $attribute): bool
     {
         $ngsiLdAttributeType = NgsiLdAttributeType::tryFrom($attribute["type"]);
         return $ngsiLdAttributeType === NgsiLdAttributeType::Relationship;

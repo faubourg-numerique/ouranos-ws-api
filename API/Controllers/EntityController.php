@@ -123,7 +123,7 @@ class EntityController extends Controller
         API::response()->send();
     }
 
-    private function buildEntityManager(Workspace $workspace): EntityManager
+    public function buildEntityManager(Workspace $workspace): EntityManager
     {
         global $systemEntityManager;
 
