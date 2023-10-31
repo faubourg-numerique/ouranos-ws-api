@@ -190,7 +190,7 @@ API::router()->mount("/api", function () {
                 API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceOfferController@destroy");
             });
 
-            API::router()->mount("/data-service-access", function () {
+            API::router()->mount("/data-service-accesses", function () {
                 API::router()->get("/", "Modules\\I4Trust\\Controllers\\DataServiceAccessController@index");
                 API::router()->post("/", "Modules\\I4Trust\\Controllers\\DataServiceAccessController@store");
                 API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceAccessController@show");
