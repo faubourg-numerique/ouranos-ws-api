@@ -44,7 +44,7 @@ class TemporalEntityPropertyManager
             }
         }
 
-        if ($temporalService->authorizationRequired) {
+        if (isset($temporalService->authorizationRequired) && $temporalService->authorizationRequired) {
             if ($temporalService->authorizationMode && $temporalService->authorizationMode == "siop2") {
                 $this->temporalServiceAuthorizationHeader = API::request()->getHeader("Gateway-Authorization");
             } else {
