@@ -648,4 +648,28 @@ final class Validation
         $validator = new Rules\KeySet(...$keys);
         $validator->assert($data);
     }
+
+    public static function validateCapability(mixed $data): void
+    {
+    }
+
+    public static function validateControlledProperty(mixed $data): void
+    {
+    }
+
+    public static function validateRouting(mixed $data): void
+    {
+    }
+
+    public static function validateRoutingOperation(mixed $data): void
+    {
+    }
+
+    public static function validateRoutingOperationControl(mixed $data): void
+    {
+    }
+
+    public static function validateWoTThingDescription(mixed $data): void
+    {
+    }
 }

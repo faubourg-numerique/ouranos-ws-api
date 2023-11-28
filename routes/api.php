@@ -134,6 +134,55 @@ API::router()->mount("/api", function () {
             API::router()->delete("/([^/]+)", "Controllers\\SubscriptionController@destroy");
         });
 
+        API::router()->mount("/capabilities", function () {
+            API::router()->get("/", "Controllers\\CapabilityController@index");
+            API::router()->post("/", "Controllers\\CapabilityController@store");
+            API::router()->get("/([^/]+)", "Controllers\\CapabilityController@show");
+            API::router()->put("/([^/]+)", "Controllers\\CapabilityController@update");
+            API::router()->delete("/([^/]+)", "Controllers\\CapabilityController@destroy");
+        });
+
+        API::router()->mount("/controlled-properties", function () {
+            API::router()->get("/", "Controllers\\ControlledPropertyController@index");
+            API::router()->post("/", "Controllers\\ControlledPropertyController@store");
+            API::router()->get("/([^/]+)", "Controllers\\ControlledPropertyController@show");
+            API::router()->put("/([^/]+)", "Controllers\\ControlledPropertyController@update");
+            API::router()->delete("/([^/]+)", "Controllers\\ControlledPropertyController@destroy");
+        });
+
+        API::router()->mount("/routings", function () {
+            API::router()->get("/", "Controllers\\RoutingController@index");
+            API::router()->post("/", "Controllers\\RoutingController@store");
+            API::router()->get("/([^/]+)", "Controllers\\RoutingController@show");
+            API::router()->put("/([^/]+)", "Controllers\\RoutingController@update");
+            API::router()->delete("/([^/]+)", "Controllers\\RoutingController@destroy");
+        });
+
+        API::router()->mount("/routing-operations", function () {
+            API::router()->get("/", "Controllers\\RoutingOperationController@index");
+            API::router()->post("/", "Controllers\\RoutingOperationController@store");
+            API::router()->get("/([^/]+)", "Controllers\\RoutingOperationController@show");
+            API::router()->put("/([^/]+)", "Controllers\\RoutingOperationController@update");
+            API::router()->delete("/([^/]+)", "Controllers\\RoutingOperationController@destroy");
+        });
+
+        API::router()->mount("/routing-operation-controls", function () {
+            API::router()->get("/", "Controllers\\RoutingOperationControlController@index");
+            API::router()->post("/", "Controllers\\RoutingOperationControlController@store");
+            API::router()->get("/([^/]+)", "Controllers\\RoutingOperationControlController@show");
+            API::router()->put("/([^/]+)", "Controllers\\RoutingOperationControlController@update");
+            API::router()->delete("/([^/]+)", "Controllers\\RoutingOperationControlController@destroy");
+        });
+
+        API::router()->mount("/wot-thing-descriptions", function () {
+            API::router()->get("/", "Controllers\\WoTThingDescriptionController@index");
+            API::router()->post("/", "Controllers\\WoTThingDescriptionController@store");
+            API::router()->get("/([^/]+)", "Controllers\\WoTThingDescriptionController@show");
+            API::router()->put("/([^/]+)", "Controllers\\WoTThingDescriptionController@update");
+            API::router()->delete("/([^/]+)", "Controllers\\WoTThingDescriptionController@destroy");
+        });
+
+
         if (I4TRUST_MODULE_ENABLED) {
             API::router()->mount("/offers", function () {
                 API::router()->get("/", "Modules\\I4Trust\\Controllers\\OfferController@index");
