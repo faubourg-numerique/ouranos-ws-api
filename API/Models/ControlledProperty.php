@@ -17,6 +17,7 @@ class ControlledProperty extends Model
     public string $hasProperty;
     public string $capacityType;
     public array $capacityValue;
+    public string $hasWorkspace;
 
     public function toEntity(): Entity
     {
@@ -30,6 +31,7 @@ class ControlledProperty extends Model
         $entity->setRelationship("hasProperty", $this->hasProperty);
         $entity->setProperty("capacityType", $this->capacityType);
         $entity->setProperty("capacityValue", $this->capacityValue);
+        $entity->setRelationship("hasWorkspace", $this->hasWorkspace);
         return $entity;
     }
 
@@ -43,5 +45,6 @@ class ControlledProperty extends Model
         $this->hasProperty = $entity->getRelationship("hasProperty");
         $this->capacityType = $entity->getProperty("capacityType");
         $this->capacityValue = $entity->getProperty("capacityValue");
+        $this->hasWorkspace = $entity->getRelationship("hasWorkspace");
     }
 }

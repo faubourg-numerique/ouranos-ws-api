@@ -16,6 +16,7 @@ class RoutingOperation extends Model
     public string $hasCapability;
     public int $timerBefore;
     public int $timerAfter;
+    public string $hasWorkspace;
 
     public function toEntity(): Entity
     {
@@ -26,6 +27,7 @@ class RoutingOperation extends Model
         $entity->setRelationship("hasCapability", $this->hasCapability);
         $entity->setProperty("timerBefore", $this->timerBefore);
         $entity->setProperty("timerAfter", $this->timerAfter);
+        $entity->setRelationship("hasWorkspace", $this->hasWorkspace);
         return $entity;
     }
 
@@ -36,5 +38,6 @@ class RoutingOperation extends Model
         $this->hasCapability = $entity->getRelationship("hasCapability");
         $this->timerBefore = $entity->getProperty("timerBefore");
         $this->timerAfter = $entity->getProperty("timerAfter");
+        $this->hasWorkspace = $entity->getRelationship("hasWorkspace");
     }
 }

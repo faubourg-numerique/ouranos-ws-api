@@ -14,6 +14,7 @@ class Routing extends Model
     public string $name;
     public ?string $description = null;
     public string $hasWoTThingDescription;
+    public string $hasWorkspace;
 
     public function toEntity(): Entity
     {
@@ -24,6 +25,7 @@ class Routing extends Model
             $entity->setProperty("description", $this->description);
         }
         $entity->setRelationship("hasWoTThingDescription", $this->hasWoTThingDescription);
+        $entity->setRelationship("hasWorkspace", $this->hasWorkspace);
         return $entity;
     }
 
@@ -34,5 +36,6 @@ class Routing extends Model
             $this->description = $entity->getProperty("description");
         }
         $this->hasWoTThingDescription = $entity->getRelationship("hasWoTThingDescription");
+        $this->hasWorkspace = $entity->getRelationship("hasWorkspace");
     }
 }

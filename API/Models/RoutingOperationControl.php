@@ -14,6 +14,7 @@ class RoutingOperationControl extends Model
     public string $controlledPropertyValue;
     public string $hasRoutingOperation;
     public string $hasControlledProperty;
+    public string $hasWorkspace;
 
     public function toEntity(): Entity
     {
@@ -22,6 +23,7 @@ class RoutingOperationControl extends Model
         $entity->setProperty("controlledPropertyValue", $this->controlledPropertyValue);
         $entity->setRelationship("hasRoutingOperation", $this->hasRoutingOperation);
         $entity->setRelationship("hasControlledProperty", $this->hasControlledProperty);
+        $entity->setRelationship("hasWorkspace", $this->hasWorkspace);
         return $entity;
     }
 
@@ -30,5 +32,6 @@ class RoutingOperationControl extends Model
         $this->controlledPropertyValue = $entity->getProperty("controlledPropertyValue");
         $this->hasRoutingOperation = $entity->getRelationship("hasRoutingOperation");
         $this->hasControlledProperty = $entity->getRelationship("hasControlledProperty");
+        $this->hasWorkspace = $entity->getRelationship("hasWorkspace");
     }
 }
