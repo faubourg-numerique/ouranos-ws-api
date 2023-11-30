@@ -11,6 +11,7 @@ class RoutingOperation extends Model
 
     const TYPE = "RoutingOperation";
 
+    public string $id;
     public int $sequenceNumber;
     public string $hasRouting;
     public string $hasCapability;
@@ -21,6 +22,7 @@ class RoutingOperation extends Model
     public function toEntity(): Entity
     {
         $entity = new Entity();
+        $entity->setId($this->id);
         $entity->setType(self::TYPE);
         $entity->setProperty("sequenceNumber", $this->sequenceNumber);
         $entity->setRelationship("hasRouting", $this->hasRouting);
@@ -33,6 +35,7 @@ class RoutingOperation extends Model
 
     public function fromEntity(Entity $entity): void
     {
+        $this->id = $entity->getId();
         $this->sequenceNumber = $entity->getProperty("sequenceNumber");
         $this->hasRouting = $entity->getRelationship("hasRouting");
         $this->hasCapability = $entity->getRelationship("hasCapability");

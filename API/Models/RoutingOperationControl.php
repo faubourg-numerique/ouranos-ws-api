@@ -11,6 +11,7 @@ class RoutingOperationControl extends Model
 
     const TYPE = "RoutingOperationControl";
 
+    public string $id;
     public string $controlledPropertyValue;
     public string $hasRoutingOperation;
     public string $hasControlledProperty;
@@ -19,6 +20,7 @@ class RoutingOperationControl extends Model
     public function toEntity(): Entity
     {
         $entity = new Entity();
+        $entity->setId($this->id);
         $entity->setType(self::TYPE);
         $entity->setProperty("controlledPropertyValue", $this->controlledPropertyValue);
         $entity->setRelationship("hasRoutingOperation", $this->hasRoutingOperation);
@@ -29,6 +31,7 @@ class RoutingOperationControl extends Model
 
     public function fromEntity(Entity $entity): void
     {
+        $this->id = $entity->getId();
         $this->controlledPropertyValue = $entity->getProperty("controlledPropertyValue");
         $this->hasRoutingOperation = $entity->getRelationship("hasRoutingOperation");
         $this->hasControlledProperty = $entity->getRelationship("hasControlledProperty");
