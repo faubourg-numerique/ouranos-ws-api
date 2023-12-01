@@ -140,6 +140,7 @@ API::router()->mount("/api", function () {
             API::router()->get("/([^/]+)", "Controllers\\CapabilityController@show");
             API::router()->put("/([^/]+)", "Controllers\\CapabilityController@update");
             API::router()->delete("/([^/]+)", "Controllers\\CapabilityController@destroy");
+            API::router()->post("/([^/]+)/execute", "Controllers\\CapabilityController@execute");
         });
 
         API::router()->mount("/controlled-properties", function () {
