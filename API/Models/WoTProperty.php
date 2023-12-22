@@ -5,16 +5,16 @@ namespace API\Models;
 use API\Traits\Updatable;
 use Core\Model;
 
-class ControlledProperty extends Model
+class WoTProperty extends Model
 {
     use Updatable;
 
-    const TYPE = "ControlledProperty";
+    const TYPE = "WoTProperty";
 
     public string $id;
     public string $name;
     public ?string $description = null;
-    public string $hasCapability;
+    public string $hasWoTAction;
     public string $hasProperty;
     public string $capacityType;
     public string $capacityValue;
@@ -29,7 +29,7 @@ class ControlledProperty extends Model
         if (!is_null($this->description)) {
             $entity->setProperty("description", $this->description);
         }
-        $entity->setRelationship("hasCapability", $this->hasCapability);
+        $entity->setRelationship("hasWoTAction", $this->hasWoTAction);
         $entity->setRelationship("hasProperty", $this->hasProperty);
         $entity->setProperty("capacityType", $this->capacityType);
         $entity->setProperty("capacityValue", $this->capacityValue);
@@ -44,7 +44,7 @@ class ControlledProperty extends Model
         if ($entity->propertyExists("description")) {
             $this->description = $entity->getProperty("description");
         }
-        $this->hasCapability = $entity->getRelationship("hasCapability");
+        $this->hasWoTAction = $entity->getRelationship("hasWoTAction");
         $this->hasProperty = $entity->getRelationship("hasProperty");
         $this->capacityType = $entity->getProperty("capacityType");
         $this->capacityValue = $entity->getProperty("capacityValue");

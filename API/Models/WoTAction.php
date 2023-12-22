@@ -5,11 +5,11 @@ namespace API\Models;
 use API\Traits\Updatable;
 use Core\Model;
 
-class Capability extends Model
+class WoTAction extends Model
 {
     use Updatable;
 
-    const TYPE = "Capability";
+    const TYPE = "WoTAction";
 
     public string $id;
     public string $name;

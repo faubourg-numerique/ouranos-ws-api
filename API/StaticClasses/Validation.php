@@ -649,11 +649,11 @@ final class Validation
         $validator->assert($data);
     }
 
-    public static function validateCapability(mixed $data): void
+    public static function validateWoTAction(mixed $data): void
     {
     }
 
-    public static function validateControlledProperty(mixed $data): void
+    public static function validateWoTProperty(mixed $data): void
     {
     }
 

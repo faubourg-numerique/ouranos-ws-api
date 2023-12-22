@@ -134,21 +134,21 @@ API::router()->mount("/api", function () {
             API::router()->delete("/([^/]+)", "Controllers\\SubscriptionController@destroy");
         });
 
-        API::router()->mount("/capabilities", function () {
-            API::router()->get("/", "Controllers\\CapabilityController@index");
-            API::router()->post("/", "Controllers\\CapabilityController@store");
-            API::router()->get("/([^/]+)", "Controllers\\CapabilityController@show");
-            API::router()->put("/([^/]+)", "Controllers\\CapabilityController@update");
-            API::router()->delete("/([^/]+)", "Controllers\\CapabilityController@destroy");
-            API::router()->post("/([^/]+)/execute", "Controllers\\CapabilityController@execute");
+        API::router()->mount("/wot-actions", function () {
+            API::router()->get("/", "Controllers\\WoTActionController@index");
+            API::router()->post("/", "Controllers\\WoTActionController@store");
+            API::router()->get("/([^/]+)", "Controllers\\WoTActionController@show");
+            API::router()->put("/([^/]+)", "Controllers\\WoTActionController@update");
+            API::router()->delete("/([^/]+)", "Controllers\\WoTActionController@destroy");
+            API::router()->post("/([^/]+)/execute", "Controllers\\WoTActionController@execute");
         });
 
-        API::router()->mount("/controlled-properties", function () {
-            API::router()->get("/", "Controllers\\ControlledPropertyController@index");
-            API::router()->post("/", "Controllers\\ControlledPropertyController@store");
-            API::router()->get("/([^/]+)", "Controllers\\ControlledPropertyController@show");
-            API::router()->put("/([^/]+)", "Controllers\\ControlledPropertyController@update");
-            API::router()->delete("/([^/]+)", "Controllers\\ControlledPropertyController@destroy");
+        API::router()->mount("/wot-properties", function () {
+            API::router()->get("/", "Controllers\\WoTPropertyController@index");
+            API::router()->post("/", "Controllers\\WoTPropertyController@store");
+            API::router()->get("/([^/]+)", "Controllers\\WoTPropertyController@show");
+            API::router()->put("/([^/]+)", "Controllers\\WoTPropertyController@update");
+            API::router()->delete("/([^/]+)", "Controllers\\WoTPropertyController@destroy");
         });
 
         API::router()->mount("/routings", function () {
