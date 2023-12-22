@@ -14,7 +14,7 @@ class WoTProperty extends Model
     public string $id;
     public string $name;
     public ?string $description = null;
-    public string $hasWoTAction;
+    public string $hasWoTThingDescription;
     public string $hasProperty;
     public string $capacityType;
     public string $capacityValue;
@@ -29,7 +29,7 @@ class WoTProperty extends Model
         if (!is_null($this->description)) {
             $entity->setProperty("description", $this->description);
         }
-        $entity->setRelationship("hasWoTAction", $this->hasWoTAction);
+        $entity->setRelationship("hasWoTThingDescription", $this->hasWoTThingDescription);
         $entity->setRelationship("hasProperty", $this->hasProperty);
         $entity->setProperty("capacityType", $this->capacityType);
         $entity->setProperty("capacityValue", $this->capacityValue);
@@ -44,7 +44,7 @@ class WoTProperty extends Model
         if ($entity->propertyExists("description")) {
             $this->description = $entity->getProperty("description");
         }
-        $this->hasWoTAction = $entity->getRelationship("hasWoTAction");
+        $this->hasWoTThingDescription = $entity->getRelationship("hasWoTThingDescription");
         $this->hasProperty = $entity->getRelationship("hasProperty");
         $this->capacityType = $entity->getProperty("capacityType");
         $this->capacityValue = $entity->getProperty("capacityValue");
