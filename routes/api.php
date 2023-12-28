@@ -160,6 +160,14 @@ API::router()->mount("/api", function () {
             API::router()->delete("/([^/]+)", "Controllers\\WoTPropertyController@destroy");
         });
 
+        API::router()->mount("/wot-events", function () {
+            API::router()->get("/", "Controllers\\WoTEventController@index");
+            API::router()->post("/", "Controllers\\WoTEventController@store");
+            API::router()->get("/([^/]+)", "Controllers\\WoTEventController@show");
+            API::router()->put("/([^/]+)", "Controllers\\WoTEventController@update");
+            API::router()->delete("/([^/]+)", "Controllers\\WoTEventController@destroy");
+        });
+
         API::router()->mount("/routings", function () {
             API::router()->get("/", "Controllers\\RoutingController@index");
             API::router()->post("/", "Controllers\\RoutingController@store");
