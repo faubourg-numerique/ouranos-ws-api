@@ -15,6 +15,7 @@ class WoTAction extends Model
     public string $name;
     public ?string $description = null;
     public string $hasWoTThingDescription;
+    public string $hasDataService;
     public string $hasWorkspace;
 
     public function toEntity(): Entity
@@ -27,6 +28,7 @@ class WoTAction extends Model
             $entity->setProperty("description", $this->description);
         }
         $entity->setRelationship("hasWoTThingDescription", $this->hasWoTThingDescription);
+        $entity->setRelationship("hasDataService", $this->hasDataService);
         $entity->setRelationship("hasWorkspace", $this->hasWorkspace);
         return $entity;
     }
@@ -39,6 +41,7 @@ class WoTAction extends Model
             $this->description = $entity->getProperty("description");
         }
         $this->hasWoTThingDescription = $entity->getRelationship("hasWoTThingDescription");
+        $this->hasDataService = $entity->getRelationship("hasDataService");
         $this->hasWorkspace = $entity->getRelationship("hasWorkspace");
     }
 }
