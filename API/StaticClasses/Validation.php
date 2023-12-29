@@ -672,8 +672,4 @@ final class Validation
     public static function validateWoTThingDescription(mixed $data): void
     {
     }
-
-    public static function validateWoTActionParameter(mixed $data): void
-    {
-    }
 }
