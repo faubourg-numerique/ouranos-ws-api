@@ -120,11 +120,10 @@ class WoTActionController extends Controller
         $entity = $entityManager->readOne($data["entityId"]);
 
         $query = "hasWoTAction==\"{$woTAction->id}\"";
-        $woTProperties = $this->woTPropertyManager->readMultiple($query);
 
-        foreach ($woTProperties as  $woTProperty) {
+        foreach ($data["woTProperties"] as $woTPropertyId => $attribute) {
+			$woTProperty = $this->woTPropertyManager->readOne($woTPropertyId);
             $property = $this->propertyManager->readOne($woTProperty->hasProperty);
-            $attribute = $data["woTProperties"][$woTProperty->id];
 
             switch ($woTProperty->capacityType) {
                 case "FixedValue": {
@@ -164,7 +163,7 @@ class WoTActionController extends Controller
             $entity->$propertyName = $attribute;
         }
 
-        $entityManager->update($entity);
+        $entityManager->updateLegacy($entity);
 
         API::response()->setStatusCode(HttpResponseStatusCodes::HTTP_NO_CONTENT);
         API::response()->send();

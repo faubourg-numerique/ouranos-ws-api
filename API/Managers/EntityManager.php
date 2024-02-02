@@ -227,6 +227,39 @@ class EntityManager extends NgsiLdManager
         }
     }
 
+    public function updateLegacy(Entity $entity): void
+    {
+        $request = new RequestHelper();
+        $request->setMethod(HttpRequestMethods::POST);
+        $request->setUrl("{$this->contextBroker->getUrl()}/ngsi-ld/v1/entities/{$entity->getId()}/attrs");
+        $request->setHeader("Accept", MimeType::Json->value);
+        $request->setHeader("Content-Type", MimeType::Json->value);
+        $request->setHeader("Link", Utils::buildLinkHeader($this->workspace->getContextUrl()));
+        $request->setJsonBody(array_diff_key((array) $entity, array_flip(["id"])), JSON_UNESCAPED_SLASHES);
+        $request->setTimeout($_ENV["REQUESTS_TIMEOUT"]);
+        if ($this->contextBroker->disableCertificateVerification) {
+            $request->setDisableCertificateVerification(true);
+        }
+
+        if ($this->service->authorizationRequired) {
+            $request->setHeader("Authorization", $this->authorizationHeader);
+        }
+        if ($this->contextBroker->multiTenancyEnabled && !is_null($this->workspace->contextBrokerTenant)) {
+            $request->setHeader("NGSILD-Tenant", $this->workspace->contextBrokerTenant);
+        }
+        if ($this->contextBroker->customHeaders) {
+            foreach ($this->contextBroker->customHeaders as $name => $value) {
+                $request->setHeader($name, $value);
+            }
+        }
+
+        $response = $request->send();
+
+        if ($response->getStatusCode() !== HttpResponseStatusCodes::HTTP_NO_CONTENT) {
+            throw new EntityManagerException\UpdateException($response);
+        }
+    }
+
     public function delete(Entity $entity): void
     {
         $request = new RequestHelper();
