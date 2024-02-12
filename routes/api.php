@@ -68,6 +68,14 @@ API::router()->mount("/api", function () {
         API::router()->delete("/([^/]+)", "Controllers\\VCVerifierController@destroy");
     });
 
+    API::router()->mount("/trusted-issuers-lists", function () {
+        API::router()->get("/", "Controllers\\TrustedIssuersListController@index");
+        API::router()->post("/", "Controllers\\TrustedIssuersListController@store");
+        API::router()->get("/([^/]+)", "Controllers\\TrustedIssuersListController@show");
+        API::router()->put("/([^/]+)", "Controllers\\TrustedIssuersListController@update");
+        API::router()->delete("/([^/]+)", "Controllers\\TrustedIssuersListController@destroy");
+    });
+
     if (I4TRUST_MODULE_ENABLED) {
         API::router()->mount("/authorization-registries", function () {
             API::router()->get("/", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryController@index");
