@@ -14,6 +14,7 @@ use API\Enums\Scheme;
 use API\Enums\StandardDataModelType;
 use API\Enums\TemporalService;
 use API\Enums\VCVerifierImplementationName;
+use API\Enums\TrustedIssuersListImplementationName;
 use Respect\Validation\Rules;
 
 final class Validation
@@ -116,6 +117,14 @@ final class Validation
         return new Rules\AllOf(
             new Rules\StringType(),
             new Rules\In(VCVerifierImplementationName::values(), true)
+        );
+    }
+
+    public static function trustedIssuersListImplementationNameValidator(): Rules\AllOf
+    {
+        return new Rules\AllOf(
+            new Rules\StringType(),
+            new Rules\In(TrustedIssuersListImplementationName::values(), true)
         );
     }
 
@@ -638,6 +647,29 @@ final class Validation
             new Rules\Key("port", self::portValidator(), true),
             new Rules\Key("path", new Rules\Nullable(self::pathValidator()), false),
             new Rules\Key("implementationName", self::vcVerifierImplementationNameValidator(), true),
+            new Rules\Key("implementationVersion", self::versionValidator(), true)
+        ];
+
+        if ($data["scheme"] === Scheme::Https->value) {
+            $keys[] = new Rules\Key("disableCertificateVerification", self::booleanValidator(), true);
+        }
+
+        $validator = new Rules\KeySet(...$keys);
+        $validator->assert($data);
+    }
+
+    public static function validateTrustedIssuersList(mixed $data): void
+    {
+        (new Rules\Key("scheme", self::schemeValidator(), true))->assert($data);
+
+        $keys = [
+            new Rules\Key("name", self::nameValidator(), true),
+            new Rules\Key("description", new Rules\Nullable(self::descriptionValidator()), false),
+            new Rules\Key("scheme", self::schemeValidator(), true),
+            new Rules\Key("host", self::hostValidator(), true),
+            new Rules\Key("port", self::portValidator(), true),
+            new Rules\Key("path", new Rules\Nullable(self::pathValidator()), false),
+            new Rules\Key("implementationName", self::trustedIssuersListImplementationNameValidator(), true),
             new Rules\Key("implementationVersion", self::versionValidator(), true)
         ];
 
