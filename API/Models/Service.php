@@ -21,6 +21,7 @@ class Service extends Model
     public ?string $hasIdentityManager = null;
     public ?string $hasIdentityManagerGrant = null;
     public ?string $hasVCVerifier = null;
+    public ?string $hasTrustedIssuersList = null;
 
     public function toEntity(): Entity
     {
@@ -48,6 +49,9 @@ class Service extends Model
         if (!is_null($this->hasVCVerifier)) {
             $entity->setRelationship("hasVCVerifier", $this->hasVCVerifier);
         }
+        if (!is_null($this->hasTrustedIssuersList)) {
+            $entity->setRelationship("hasTrustedIssuersList", $this->hasTrustedIssuersList);
+        }
         return $entity;
     }
 
@@ -74,6 +78,9 @@ class Service extends Model
         }
         if ($entity->relationshipExists("hasVCVerifier")) {
             $this->hasVCVerifier = $entity->getRelationship("hasVCVerifier");
+        }
+        if ($entity->relationshipExists("hasTrustedIssuersList")) {
+            $this->hasTrustedIssuersList = $entity->getRelationship("hasTrustedIssuersList");
         }
     }
 }
