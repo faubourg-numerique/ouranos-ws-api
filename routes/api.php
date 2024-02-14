@@ -201,13 +201,6 @@ API::router()->mount("/api", function () {
 
 
         if (I4TRUST_MODULE_ENABLED) {
-            API::router()->mount("/offers", function () {
-                API::router()->get("/", "Modules\\I4Trust\\Controllers\\OfferController@index");
-                API::router()->post("/", "Modules\\I4Trust\\Controllers\\OfferController@store");
-                API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\OfferController@show");
-                API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\OfferController@destroy");
-            });
-
             API::router()->mount("/contracts", function () {
                 API::router()->get("/", "Modules\\I4Trust\\Controllers\\ContractController@index");
                 API::router()->post("/", "Modules\\I4Trust\\Controllers\\ContractController@store");
