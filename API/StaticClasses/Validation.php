@@ -298,6 +298,11 @@ final class Validation
         );
     }
 
+    public static function didValidator(): Rules\AllOf
+    {
+        return new Rules\StringType();
+    }
+
     public static function prohibitedValidator(): Rules\AllOf
     {
         return new Rules\AllOf(
@@ -650,7 +655,8 @@ final class Validation
             new Rules\Key("port", self::portValidator(), true),
             new Rules\Key("path", new Rules\Nullable(self::pathValidator()), false),
             new Rules\Key("implementationName", self::vcVerifierImplementationNameValidator(), true),
-            new Rules\Key("implementationVersion", self::versionValidator(), true)
+            new Rules\Key("implementationVersion", self::versionValidator(), true),
+            new Rules\Key("did", self::didValidator(), true)
         ];
 
         if ($data["scheme"] === Scheme::Https->value) {

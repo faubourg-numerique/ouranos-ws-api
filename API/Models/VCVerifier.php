@@ -22,6 +22,7 @@ class VCVerifier extends Model
     public string $implementationName;
     public string $implementationVersion;
     public ?bool $disableCertificateVerification = null;
+    public string $did;
 
     public function getUrl(): string
     {
@@ -48,6 +49,7 @@ class VCVerifier extends Model
         if (!is_null($this->disableCertificateVerification)) {
             $entity->setProperty("disableCertificateVerification", $this->disableCertificateVerification);
         }
+        $entity->setProperty("did", $this->did);
         return $entity;
     }
 
@@ -69,5 +71,6 @@ class VCVerifier extends Model
         if ($entity->propertyExists("disableCertificateVerification")) {
             $this->disableCertificateVerification = $entity->getProperty("disableCertificateVerification");
         }
+        $this->did = $entity->getProperty("did");
     }
 }
