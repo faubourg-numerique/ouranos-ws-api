@@ -207,6 +207,7 @@ API::router()->mount("/api", function () {
                 API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\ContractController@show");
                 API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\ContractController@update");
                 API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\ContractController@destroy");
+                API::router()->post("/([^/]+)/synchronize", "Modules\\I4Trust\\Controllers\\ContractController@synchronize");
             });
 
             API::router()->mount("/contract-details", function () {
