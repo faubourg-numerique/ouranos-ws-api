@@ -300,7 +300,9 @@ final class Validation
 
     public static function didValidator(): Rules\AllOf
     {
-        return new Rules\StringType();
+        return new Rules\AllOf(
+            new Rules\StringType()
+        );
     }
 
     public static function prohibitedValidator(): Rules\AllOf
