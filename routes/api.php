@@ -256,7 +256,6 @@ API::router()->mount("/api", function () {
                 API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceAccessController@show");
                 API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceAccessController@update");
                 API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\DataServiceAccessController@destroy");
-                API::router()->post("/([^/]+)/synchronize", "Modules\\I4Trust\\Controllers\\DataServiceAccessController@synchronize");
             });
 
             API::router()->mount("/authorization-registry-bridge", function () {
@@ -269,6 +268,7 @@ API::router()->mount("/api", function () {
                 API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\RoleController@show");
                 API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\RoleController@update");
                 API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\RoleController@destroy");
+                API::router()->post("/([^/]+)/synchronize", "Modules\\I4Trust\\Controllers\\RoleController@synchronize");
             });
         }
     });
