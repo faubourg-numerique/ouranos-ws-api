@@ -3,7 +3,12 @@
 namespace API\Controllers;
 
 use API\Enums\MimeType;
+use API\Enums\NgsiLdPropertyValueType;
+use API\Managers\PropertyManager;
 use API\Managers\WoTThingDescriptionManager;
+use API\Managers\WoTPropertyManager;
+use API\Managers\WoTActionManager;
+use API\Managers\WoTEventManager;
 use API\Managers\WorkspaceManager;
 use API\Models\WoTThingDescription;
 use API\StaticClasses\Utils;
@@ -14,13 +19,21 @@ use Core\HttpResponseStatusCodes;
 class WoTThingDescriptionController extends Controller
 {
     private WorkspaceManager $workspaceManager;
+    private PropertyManager $propertyManager;
     private WoTThingDescriptionManager $woTThingDescriptionManager;
+    private WoTPropertyManager $woTPropertyManager;
+    private WoTActionManager $woTActionManager;
+    private WoTEventManager $woTEventManager;
 
     public function __construct()
     {
         global $systemEntityManager;
         $this->workspaceManager = new WorkspaceManager($systemEntityManager);
+        $this->propertyManager = new PropertyManager($systemEntityManager);
         $this->woTThingDescriptionManager = new WoTThingDescriptionManager($systemEntityManager);
+        $this->woTPropertyManager = new WoTPropertyManager($systemEntityManager);
+        $this->woTActionManager = new WoTActionManager($systemEntityManager);
+        $this->woTEventManager = new WoTEventManager($systemEntityManager);
     }
 
     public function index(string $workspaceId): void
@@ -92,6 +105,80 @@ class WoTThingDescriptionController extends Controller
         $this->woTThingDescriptionManager->delete($woTThingDescription);
 
         API::response()->setStatusCode(HttpResponseStatusCodes::HTTP_NO_CONTENT);
+        API::response()->send();
+    }
+
+    public function build(string $id): void
+    {
+        $woTThingDescription = $this->woTThingDescriptionManager->readOne($id);
+
+        $workspace = $this->workspaceManager->readOne($woTThingDescription->hasWorkspace);
+
+        $query = "hasWorkspace==\"{$workspace->id}\";hasWoTThingDescription==\"{$woTThingDescription->id}\"";
+        $woTProperties = $this->woTPropertyManager->readMultiple($query);
+
+        $query = "hasWorkspace==\"{$workspace->id}\";hasWoTThingDescription==\"{$woTThingDescription->id}\"";
+        $woTActions = $this->woTActionManager->readMultiple($query);
+
+        $query = "hasWorkspace==\"{$workspace->id}\";hasWoTThingDescription==\"{$woTThingDescription->id}\"";
+        $woTEvents = $this->woTEventManager->readMultiple($query);
+
+        $td = [
+            "@context" => "https://www.w3.org/2019/wot/td/v1",
+            "title" => $woTThingDescription->name,
+            "securityDefinitions" => [
+                "nosec_sc" => [
+                    "scheme" => "nosec"
+                ]
+            ],
+            "security" => "nosec_sc"
+        ];
+
+        if($woTProperties) {
+            $td["properties"] = [];
+
+            foreach($woTProperties as $woTProperty) {
+                $property = $this->propertyManager->readOne($woTProperty->hasProperty);
+                $td["properties"][$property->name] = [
+                    "title" => $woTProperty->name,
+                    "type" => strtolower($property->propertyNgsiLdValueType),
+                    "observable" => false,
+                    "readOnly" => false
+                ];
+
+                if($property->propertyNgsiLdValueType === NgsiLdPropertyValueType::Number->value) {
+                    if($woTProperty->capacityType === "Range") {
+                        $capacityValue = json_decode($woTProperty->capacityValue, true);
+                        $td["properties"][$property->name]["min"] = $capacityValue[0];
+                        $td["properties"][$property->name]["max"] = $capacityValue[1];
+                    }
+                }
+            }
+        }
+
+        if($woTActions) {
+            $td["actions"] = [];
+
+            foreach($woTActions as $woTAction) {
+                $td["actions"][$woTAction->name] = [
+                    "title" => $woTAction->description ?? $woTAction->name
+                ];
+            }
+        }
+
+        if($woTEvents) {
+            $td["events"] = [];
+
+            foreach($woTEvents as $woTEvent) {
+                $td["events"][$woTEvent->name] = [
+                    "title" => $woTEvent->description ?? $woTEvent->name
+                ];
+            }
+        }
+
+        API::response()->setStatusCode(HttpResponseStatusCodes::HTTP_OK);
+        API::response()->setHeader("Content-Type", MimeType::Json->value);
+        API::response()->setJsonBody($td, JSON_UNESCAPED_SLASHES);
         API::response()->send();
     }
 }

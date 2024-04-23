@@ -9,7 +9,7 @@ API::router()->before(implode("|", [
     HttpRequestMethods::PUT,
     HttpRequestMethods::PATCH,
     HttpRequestMethods::DELETE
-]), "/.*", "Middlewares\\AuthorizationMiddleware@authorize");
+]), "/api/.*", "Middlewares\\AuthorizationMiddleware@authorize");
 
 API::router()->mount("/api", function () {
     API::router()->mount("/temporal-services", function () {
@@ -302,4 +302,8 @@ API::router()->mount("/api", function () {
             });
         });
     }
+});
+
+API::router()->mount("/wot-thing-descriptions", function () {
+    API::router()->get("/([^/]+)", "Controllers\\WoTThingDescriptionController@build");
 });
