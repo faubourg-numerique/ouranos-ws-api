@@ -76,31 +76,29 @@ API::router()->mount("/api", function () {
         API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\TrustedIssuersListController@destroy");
     });
 
-    if (I4TRUST_MODULE_ENABLED) {
-        API::router()->mount("/authorization-registries", function () {
-            API::router()->get("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@index");
-            API::router()->post("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@store");
-            API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@show");
-            API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@update");
-            API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@destroy");
-        });
+    API::router()->mount("/authorization-registries", function () {
+        API::router()->get("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@index");
+        API::router()->post("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@store");
+        API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@show");
+        API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@update");
+        API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@destroy");
+    });
 
-        API::router()->mount("/authorization-registry-grants", function () {
-            API::router()->get("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@index");
-            API::router()->post("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@store");
-            API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@show");
-            API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@update");
-            API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@destroy");
-        });
+    API::router()->mount("/authorization-registry-grants", function () {
+        API::router()->get("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@index");
+        API::router()->post("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@store");
+        API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@show");
+        API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@update");
+        API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@destroy");
+    });
 
-        API::router()->mount("/data-actions", function () {
-            API::router()->get("/", "Modules\\DataServices\\Controllers\\DataActionController@index");
-            API::router()->post("/", "Modules\\DataServices\\Controllers\\DataActionController@store");
-            API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataActionController@show");
-            API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataActionController@update");
-            API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataActionController@destroy");
-        });
-    }
+    API::router()->mount("/data-actions", function () {
+        API::router()->get("/", "Modules\\DataServices\\Controllers\\DataActionController@index");
+        API::router()->post("/", "Modules\\DataServices\\Controllers\\DataActionController@store");
+        API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataActionController@show");
+        API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataActionController@update");
+        API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataActionController@destroy");
+    });
 
     API::router()->mount("/workspace/([^/]+)", function () {
         API::router()->mount("/data-model", function () {
@@ -199,87 +197,83 @@ API::router()->mount("/api", function () {
             API::router()->delete("/([^/]+)", "Modules\\WoT\\Controllers\\WoTThingDescriptionController@destroy");
         });
 
+        API::router()->mount("/contracts", function () {
+            API::router()->get("/", "Modules\\DSC\\Controllers\\ContractController@index");
+            API::router()->post("/", "Modules\\DSC\\Controllers\\ContractController@store");
+            API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\ContractController@show");
+            API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\ContractController@update");
+            API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\ContractController@destroy");
+            API::router()->post("/([^/]+)/synchronize", "Modules\\DSC\\Controllers\\ContractController@synchronize");
+        });
 
-        if (I4TRUST_MODULE_ENABLED) {
-            API::router()->mount("/contracts", function () {
-                API::router()->get("/", "Modules\\DSC\\Controllers\\ContractController@index");
-                API::router()->post("/", "Modules\\DSC\\Controllers\\ContractController@store");
-                API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\ContractController@show");
-                API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\ContractController@update");
-                API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\ContractController@destroy");
-                API::router()->post("/([^/]+)/synchronize", "Modules\\DSC\\Controllers\\ContractController@synchronize");
-            });
+        API::router()->mount("/contract-details", function () {
+            API::router()->get("/", "Modules\\DSC\\Controllers\\ContractDetailController@index");
+            API::router()->post("/", "Modules\\DSC\\Controllers\\ContractDetailController@store");
+            API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@show");
+            API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@update");
+            API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@destroy");
+        });
 
-            API::router()->mount("/contract-details", function () {
-                API::router()->get("/", "Modules\\DSC\\Controllers\\ContractDetailController@index");
-                API::router()->post("/", "Modules\\DSC\\Controllers\\ContractDetailController@store");
-                API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@show");
-                API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@update");
-                API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@destroy");
-            });
+        API::router()->mount("/data-services", function () {
+            API::router()->get("/", "Modules\\DataServices\\Controllers\\DataServiceController@index");
+            API::router()->post("/", "Modules\\DataServices\\Controllers\\DataServiceController@store");
+            API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceController@show");
+            API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceController@update");
+            API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceController@destroy");
+        });
 
-            API::router()->mount("/data-services", function () {
-                API::router()->get("/", "Modules\\DataServices\\Controllers\\DataServiceController@index");
-                API::router()->post("/", "Modules\\DataServices\\Controllers\\DataServiceController@store");
-                API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceController@show");
-                API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceController@update");
-                API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceController@destroy");
-            });
+        API::router()->mount("/data-service-actions", function () {
+            API::router()->get("/", "Modules\\DataServices\\Controllers\\DataServiceActionController@index");
+            API::router()->post("/", "Modules\\DataServices\\Controllers\\DataServiceActionController@store");
+            API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceActionController@show");
+            API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceActionController@update");
+            API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceActionController@destroy");
+        });
 
-            API::router()->mount("/data-service-actions", function () {
-                API::router()->get("/", "Modules\\DataServices\\Controllers\\DataServiceActionController@index");
-                API::router()->post("/", "Modules\\DataServices\\Controllers\\DataServiceActionController@store");
-                API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceActionController@show");
-                API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceActionController@update");
-                API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceActionController@destroy");
-            });
+        API::router()->mount("/data-service-properties", function () {
+            API::router()->get("/", "Modules\\DataServices\\Controllers\\DataServicePropertyController@index");
+            API::router()->post("/", "Modules\\DataServices\\Controllers\\DataServicePropertyController@store");
+            API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServicePropertyController@show");
+            API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServicePropertyController@update");
+            API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServicePropertyController@destroy");
+        });
 
-            API::router()->mount("/data-service-properties", function () {
-                API::router()->get("/", "Modules\\DataServices\\Controllers\\DataServicePropertyController@index");
-                API::router()->post("/", "Modules\\DataServices\\Controllers\\DataServicePropertyController@store");
-                API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServicePropertyController@show");
-                API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServicePropertyController@update");
-                API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServicePropertyController@destroy");
-            });
+        API::router()->mount("/data-service-offers", function () {
+            API::router()->get("/", "Modules\\DataServices\\Controllers\\DataServiceOfferController@index");
+            API::router()->post("/", "Modules\\DataServices\\Controllers\\DataServiceOfferController@store");
+            API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceOfferController@show");
+            API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceOfferController@update");
+            API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceOfferController@destroy");
+        });
 
-            API::router()->mount("/data-service-offers", function () {
-                API::router()->get("/", "Modules\\DataServices\\Controllers\\DataServiceOfferController@index");
-                API::router()->post("/", "Modules\\DataServices\\Controllers\\DataServiceOfferController@store");
-                API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceOfferController@show");
-                API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceOfferController@update");
-                API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceOfferController@destroy");
-            });
+        API::router()->mount("/data-service-accesses", function () {
+            API::router()->get("/", "Modules\\DataServices\\Controllers\\DataServiceAccessController@index");
+            API::router()->post("/", "Modules\\DataServices\\Controllers\\DataServiceAccessController@store");
+            API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceAccessController@show");
+            API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceAccessController@update");
+            API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceAccessController@destroy");
+        });
 
-            API::router()->mount("/data-service-accesses", function () {
-                API::router()->get("/", "Modules\\DataServices\\Controllers\\DataServiceAccessController@index");
-                API::router()->post("/", "Modules\\DataServices\\Controllers\\DataServiceAccessController@store");
-                API::router()->get("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceAccessController@show");
-                API::router()->put("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceAccessController@update");
-                API::router()->delete("/([^/]+)", "Modules\\DataServices\\Controllers\\DataServiceAccessController@destroy");
-            });
+        API::router()->mount("/authorization-registry-bridge", function () {
+            API::router()->post("/create-policy", "Modules\\DSC\\Controllers\\AuthorizationRegistryBridgeController@createPolicy");
+        });
 
-            API::router()->mount("/authorization-registry-bridge", function () {
-                API::router()->post("/create-policy", "Modules\\DSC\\Controllers\\AuthorizationRegistryBridgeController@createPolicy");
-            });
-
-            API::router()->mount("/roles", function () {
-                API::router()->get("/", "Modules\\DSC\\Controllers\\RoleController@index");
-                API::router()->post("/", "Modules\\DSC\\Controllers\\RoleController@store");
-                API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\RoleController@show");
-                API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\RoleController@update");
-                API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\RoleController@destroy");
-                API::router()->post("/([^/]+)/synchronize", "Modules\\DSC\\Controllers\\RoleController@synchronize");
-            });
-        }
+        API::router()->mount("/roles", function () {
+            API::router()->get("/", "Modules\\DSC\\Controllers\\RoleController@index");
+            API::router()->post("/", "Modules\\DSC\\Controllers\\RoleController@store");
+            API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\RoleController@show");
+            API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\RoleController@update");
+            API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\RoleController@destroy");
+            API::router()->post("/([^/]+)/synchronize", "Modules\\DSC\\Controllers\\RoleController@synchronize");
+        });
     });
 
     API::router()->mount("/proxies", function () {
-        if (I4TRUST_MODULE_ENABLED) {
-            API::router()->mount("/authorization-registry", function () {
-                API::router()->post("/create-policy", "Modules\\DSC\\Controllers\\AuthorizationRegistryProxyController@createPolicy");
-                API::router()->post("/request-delegation", "Modules\\DSC\\Controllers\\AuthorizationRegistryProxyController@requestDelegation");
-            });
-        }
+        API::router()->mount("/authorization-registry", function () {
+            API::router()->post("/create-policy", "Modules\\DSC\\Controllers\\AuthorizationRegistryProxyController@createPolicy");
+            API::router()->post("/request-delegation", "Modules\\DSC\\Controllers\\AuthorizationRegistryProxyController@requestDelegation");
+        });
+
         API::router()->mount("/google-sheets", function () {
             API::router()->get("/read-sheet", "Proxies\\GoogleSheetsProxy@readSheet");
             API::router()->post("/write-sheet", "Proxies\\GoogleSheetsProxy@writeSheet");

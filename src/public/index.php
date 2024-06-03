@@ -29,11 +29,18 @@ if (isset($_ENV["ENABLED_MODULES"])) {
     $enabledModules = array_map("strtolower", $temp);
 }
 
-define("I4TRUST_MODULE_ENABLED", in_array("i4trust", $enabledModules));
+define("DATA_SERVICES_MODULE_ENABLED", in_array("data-services", $enabledModules));
+define("WOT_MODULE_ENABLED", in_array("wot", $enabledModules));
+define("DSC_MODULE_ENABLED", in_array("dsc", $enabledModules));
 
 ini_set("display_errors", intval(filter_var($_ENV["SHOW_ERRORS"], FILTER_VALIDATE_BOOLEAN)));
 
 date_default_timezone_set("UTC");
+
+if (!DATA_SERVICES_MODULE_ENABLED || !WOT_MODULE_ENABLED || !DSC_MODULE_ENABLED) {
+    trigger_error("At the moment, each of the \"data-services\", \"wot\" and \"dsc\" modules must be installed and enabled in order to ouranos-ws to work.", E_USER_ERROR);
+    exit;
+}
 
 API::init();
 
