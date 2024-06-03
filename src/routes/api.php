@@ -61,36 +61,36 @@ API::router()->mount("/api", function () {
     });
 
     API::router()->mount("/vc-verifiers", function () {
-        API::router()->get("/", "Controllers\\VCVerifierController@index");
-        API::router()->post("/", "Controllers\\VCVerifierController@store");
-        API::router()->get("/([^/]+)", "Controllers\\VCVerifierController@show");
-        API::router()->put("/([^/]+)", "Controllers\\VCVerifierController@update");
-        API::router()->delete("/([^/]+)", "Controllers\\VCVerifierController@destroy");
+        API::router()->get("/", "Modules\\DSC\\Controllers\\VCVerifierController@index");
+        API::router()->post("/", "Modules\\DSC\\Controllers\\VCVerifierController@store");
+        API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\VCVerifierController@show");
+        API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\VCVerifierController@update");
+        API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\VCVerifierController@destroy");
     });
 
     API::router()->mount("/trusted-issuers-lists", function () {
-        API::router()->get("/", "Controllers\\TrustedIssuersListController@index");
-        API::router()->post("/", "Controllers\\TrustedIssuersListController@store");
-        API::router()->get("/([^/]+)", "Controllers\\TrustedIssuersListController@show");
-        API::router()->put("/([^/]+)", "Controllers\\TrustedIssuersListController@update");
-        API::router()->delete("/([^/]+)", "Controllers\\TrustedIssuersListController@destroy");
+        API::router()->get("/", "Modules\\DSC\\Controllers\\TrustedIssuersListController@index");
+        API::router()->post("/", "Modules\\DSC\\Controllers\\TrustedIssuersListController@store");
+        API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\TrustedIssuersListController@show");
+        API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\TrustedIssuersListController@update");
+        API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\TrustedIssuersListController@destroy");
     });
 
     if (I4TRUST_MODULE_ENABLED) {
         API::router()->mount("/authorization-registries", function () {
-            API::router()->get("/", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryController@index");
-            API::router()->post("/", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryController@store");
-            API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryController@show");
-            API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryController@update");
-            API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryController@destroy");
+            API::router()->get("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@index");
+            API::router()->post("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@store");
+            API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@show");
+            API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@update");
+            API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryController@destroy");
         });
 
         API::router()->mount("/authorization-registry-grants", function () {
-            API::router()->get("/", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryGrantController@index");
-            API::router()->post("/", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryGrantController@store");
-            API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryGrantController@show");
-            API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryGrantController@update");
-            API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryGrantController@destroy");
+            API::router()->get("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@index");
+            API::router()->post("/", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@store");
+            API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@show");
+            API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@update");
+            API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\AuthorizationRegistryGrantController@destroy");
         });
 
         API::router()->mount("/data-actions", function () {
@@ -202,20 +202,20 @@ API::router()->mount("/api", function () {
 
         if (I4TRUST_MODULE_ENABLED) {
             API::router()->mount("/contracts", function () {
-                API::router()->get("/", "Modules\\I4Trust\\Controllers\\ContractController@index");
-                API::router()->post("/", "Modules\\I4Trust\\Controllers\\ContractController@store");
-                API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\ContractController@show");
-                API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\ContractController@update");
-                API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\ContractController@destroy");
-                API::router()->post("/([^/]+)/synchronize", "Modules\\I4Trust\\Controllers\\ContractController@synchronize");
+                API::router()->get("/", "Modules\\DSC\\Controllers\\ContractController@index");
+                API::router()->post("/", "Modules\\DSC\\Controllers\\ContractController@store");
+                API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\ContractController@show");
+                API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\ContractController@update");
+                API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\ContractController@destroy");
+                API::router()->post("/([^/]+)/synchronize", "Modules\\DSC\\Controllers\\ContractController@synchronize");
             });
 
             API::router()->mount("/contract-details", function () {
-                API::router()->get("/", "Modules\\I4Trust\\Controllers\\ContractDetailController@index");
-                API::router()->post("/", "Modules\\I4Trust\\Controllers\\ContractDetailController@store");
-                API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\ContractDetailController@show");
-                API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\ContractDetailController@update");
-                API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\ContractDetailController@destroy");
+                API::router()->get("/", "Modules\\DSC\\Controllers\\ContractDetailController@index");
+                API::router()->post("/", "Modules\\DSC\\Controllers\\ContractDetailController@store");
+                API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@show");
+                API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@update");
+                API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@destroy");
             });
 
             API::router()->mount("/data-services", function () {
@@ -259,16 +259,16 @@ API::router()->mount("/api", function () {
             });
 
             API::router()->mount("/authorization-registry-bridge", function () {
-                API::router()->post("/create-policy", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryBridgeController@createPolicy");
+                API::router()->post("/create-policy", "Modules\\DSC\\Controllers\\AuthorizationRegistryBridgeController@createPolicy");
             });
 
             API::router()->mount("/roles", function () {
-                API::router()->get("/", "Modules\\I4Trust\\Controllers\\RoleController@index");
-                API::router()->post("/", "Modules\\I4Trust\\Controllers\\RoleController@store");
-                API::router()->get("/([^/]+)", "Modules\\I4Trust\\Controllers\\RoleController@show");
-                API::router()->put("/([^/]+)", "Modules\\I4Trust\\Controllers\\RoleController@update");
-                API::router()->delete("/([^/]+)", "Modules\\I4Trust\\Controllers\\RoleController@destroy");
-                API::router()->post("/([^/]+)/synchronize", "Modules\\I4Trust\\Controllers\\RoleController@synchronize");
+                API::router()->get("/", "Modules\\DSC\\Controllers\\RoleController@index");
+                API::router()->post("/", "Modules\\DSC\\Controllers\\RoleController@store");
+                API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\RoleController@show");
+                API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\RoleController@update");
+                API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\RoleController@destroy");
+                API::router()->post("/([^/]+)/synchronize", "Modules\\DSC\\Controllers\\RoleController@synchronize");
             });
         }
     });
@@ -276,8 +276,8 @@ API::router()->mount("/api", function () {
     API::router()->mount("/proxies", function () {
         if (I4TRUST_MODULE_ENABLED) {
             API::router()->mount("/authorization-registry", function () {
-                API::router()->post("/create-policy", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryProxyController@createPolicy");
-                API::router()->post("/request-delegation", "Modules\\I4Trust\\Controllers\\AuthorizationRegistryProxyController@requestDelegation");
+                API::router()->post("/create-policy", "Modules\\DSC\\Controllers\\AuthorizationRegistryProxyController@createPolicy");
+                API::router()->post("/request-delegation", "Modules\\DSC\\Controllers\\AuthorizationRegistryProxyController@requestDelegation");
             });
         }
         API::router()->mount("/google-sheets", function () {
@@ -291,8 +291,8 @@ API::router()->mount("/api", function () {
     });
 
     API::router()->mount("/siop2", function () {
-        API::router()->get("/callback", "Controllers\\SIOP2Controller@callback");
-        API::router()->get("/poll", "Controllers\\SIOP2Controller@poll");
+        API::router()->get("/callback", "Modules\\DSC\\Controllers\\SIOP2Controller@callback");
+        API::router()->get("/poll", "Modules\\DSC\\Controllers\\SIOP2Controller@poll");
     });
 
     if (DEVELOPMENT) {

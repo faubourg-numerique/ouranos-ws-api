@@ -13,8 +13,8 @@ use API\Enums\NgsiLdPropertyValueType;
 use API\Enums\Scheme;
 use API\Enums\StandardDataModelType;
 use API\Enums\TemporalService;
-use API\Enums\VCVerifierImplementationName;
-use API\Enums\TrustedIssuersListImplementationName;
+use API\Modules\DSC\Enums\VCVerifierImplementationName;
+use API\Modules\DSC\Enums\TrustedIssuersListImplementationName;
 use Respect\Validation\Rules;
 
 final class Validation
@@ -714,5 +714,113 @@ final class Validation
 
     public static function validateWoTThingDescription(mixed $data): void
     {
+    }
+
+    public static function identifierValidator(): Rules\AllOf
+    {
+        return new Rules\AllOf(
+            new Rules\StringType(),
+            new Rules\NotBlank()
+        );
+    }
+
+    public static function authorizationRegistryImplementationNameValidator(): Rules\AllOf
+    {
+        return new Rules\AllOf(
+            new Rules\StringType(),
+            new Rules\In(AuthorizationRegistryImplementationName::values(), true)
+        );
+    }
+
+    public static function certificatesValidator(): Rules\AllOf
+    {
+        return new Rules\AllOf(
+            new Rules\ArrayType(),
+            new Rules\NotBlank(),
+            new Rules\Each(
+                new Rules\AllOf(
+                    new Rules\StringType(),
+                    new Rules\NotBlank()
+                )
+            )
+        );
+    }
+
+    public static function privateKeyValidator(): Rules\AllOf
+    {
+        return new Rules\AllOf(
+            new Rules\StringType(),
+            new Rules\NotBlank()
+        );
+    }
+
+    public static function delegationEvidenceValidator(): Rules\AllOf
+    {
+        return new Rules\AllOf(
+            new Rules\ArrayType()
+        );
+    }
+
+    public static function delegationRequestValidator(): Rules\AllOf
+    {
+        return new Rules\AllOf(
+            new Rules\ArrayType()
+        );
+    }
+
+    public static function validateAuthorizationRegistry(mixed $data): void
+    {
+        $keys = [
+            new Rules\Key("name", DefaultValidation::nameValidator(), true),
+            new Rules\Key("description", new Rules\Nullable(DefaultValidation::descriptionValidator()), false),
+            new Rules\Key("identifier", self::identifierValidator(), true),
+            new Rules\Key("certificates", self::certificatesValidator(), true),
+            new Rules\Key("scheme", DefaultValidation::schemeValidator(), true),
+            new Rules\Key("host", DefaultValidation::hostValidator(), true),
+            new Rules\Key("port", DefaultValidation::portValidator(), true),
+            new Rules\Key("path", new Rules\Nullable(DefaultValidation::pathValidator()), false),
+            new Rules\Key("oauth2TokenPath", DefaultValidation::pathValidator(), true),
+            new Rules\Key("delegationPath", DefaultValidation::pathValidator(), true),
+            new Rules\Key("policyPath", DefaultValidation::pathValidator(), true),
+            new Rules\Key("implementationName", self::authorizationRegistryImplementationNameValidator(), true),
+            new Rules\Key("implementationVersion", DefaultValidation::versionValidator(), true),
+        ];
+
+        $validator = new Rules\KeySet(...$keys);
+        $validator->assert($data);
+    }
+
+    public static function validateAuthorizationRegistryGrant(mixed $data): void
+    {
+        $keys = [
+            new Rules\Key("name", DefaultValidation::nameValidator(), true),
+            new Rules\Key("description", new Rules\Nullable(DefaultValidation::descriptionValidator()), false),
+            new Rules\Key("identifier", self::identifierValidator(), true),
+            new Rules\Key("certificates", self::certificatesValidator(), true),
+            new Rules\Key("privateKey", self::privateKeyValidator(), true)
+        ];
+
+        $validator = new Rules\KeySet(...$keys);
+        $validator->assert($data);
+    }
+
+    public static function validateDelegationEvidence(mixed $data): void
+    {
+        $keys = [
+            new Rules\Key("delegationEvidence", self::delegationEvidenceValidator(), true)
+        ];
+
+        $validator = new Rules\KeySet(...$keys);
+        $validator->assert($data);
+    }
+
+    public static function validateDelegationRequest(mixed $data): void
+    {
+        $keys = [
+            new Rules\Key("delegationRequest", self::delegationRequestValidator(), true)
+        ];
+
+        $validator = new Rules\KeySet(...$keys);
+        $validator->assert($data);
     }
 }
