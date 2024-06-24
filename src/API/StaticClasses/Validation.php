@@ -13,6 +13,7 @@ use API\Enums\NgsiLdPropertyValueType;
 use API\Enums\Scheme;
 use API\Enums\StandardDataModelType;
 use API\Enums\TemporalService;
+use API\Modules\DSC\Enums\AuthorizationRegistryImplementationName;
 use API\Modules\DSC\Enums\VCVerifierImplementationName;
 use API\Modules\DSC\Enums\TrustedIssuersListImplementationName;
 use Respect\Validation\Rules;
@@ -771,19 +772,19 @@ final class Validation
     public static function validateAuthorizationRegistry(mixed $data): void
     {
         $keys = [
-            new Rules\Key("name", DefaultValidation::nameValidator(), true),
-            new Rules\Key("description", new Rules\Nullable(DefaultValidation::descriptionValidator()), false),
+            new Rules\Key("name", self::nameValidator(), true),
+            new Rules\Key("description", new Rules\Nullable(self::descriptionValidator()), false),
             new Rules\Key("identifier", self::identifierValidator(), true),
             new Rules\Key("certificates", self::certificatesValidator(), true),
-            new Rules\Key("scheme", DefaultValidation::schemeValidator(), true),
-            new Rules\Key("host", DefaultValidation::hostValidator(), true),
-            new Rules\Key("port", DefaultValidation::portValidator(), true),
-            new Rules\Key("path", new Rules\Nullable(DefaultValidation::pathValidator()), false),
-            new Rules\Key("oauth2TokenPath", DefaultValidation::pathValidator(), true),
-            new Rules\Key("delegationPath", DefaultValidation::pathValidator(), true),
-            new Rules\Key("policyPath", DefaultValidation::pathValidator(), true),
+            new Rules\Key("scheme", self::schemeValidator(), true),
+            new Rules\Key("host", self::hostValidator(), true),
+            new Rules\Key("port", self::portValidator(), true),
+            new Rules\Key("path", new Rules\Nullable(self::pathValidator()), false),
+            new Rules\Key("oauth2TokenPath", self::pathValidator(), true),
+            new Rules\Key("delegationPath", self::pathValidator(), true),
+            new Rules\Key("policyPath", self::pathValidator(), true),
             new Rules\Key("implementationName", self::authorizationRegistryImplementationNameValidator(), true),
-            new Rules\Key("implementationVersion", DefaultValidation::versionValidator(), true),
+            new Rules\Key("implementationVersion", self::versionValidator(), true),
         ];
 
         $validator = new Rules\KeySet(...$keys);
@@ -793,8 +794,8 @@ final class Validation
     public static function validateAuthorizationRegistryGrant(mixed $data): void
     {
         $keys = [
-            new Rules\Key("name", DefaultValidation::nameValidator(), true),
-            new Rules\Key("description", new Rules\Nullable(DefaultValidation::descriptionValidator()), false),
+            new Rules\Key("name", self::nameValidator(), true),
+            new Rules\Key("description", new Rules\Nullable(self::descriptionValidator()), false),
             new Rules\Key("identifier", self::identifierValidator(), true),
             new Rules\Key("certificates", self::certificatesValidator(), true),
             new Rules\Key("privateKey", self::privateKeyValidator(), true)
