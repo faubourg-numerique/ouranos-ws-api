@@ -570,6 +570,7 @@ final class Validation
             new Rules\Key("standardDataModelBased", self::booleanValidator(), true),
             new Rules\Key("positionInChart", new Rules\Nullable(self::positionInChartValidator()), false),
             new Rules\Key("dataModelGroup", new Rules\Nullable(self::dataModelGroupValidator()), false),
+            new Rules\Key("scopeName", new Rules\Nullable(new Rules\StringType()), false),
             new Rules\Key("hasWorkspace", self::urnValidator(), true)
         ];
 

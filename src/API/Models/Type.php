@@ -20,6 +20,7 @@ class Type extends Model
     public ?string $standardDataModelDefinitionUrl = null;
     public ?array $positionInChart = null;
     public ?string $dataModelGroup = null;
+    public ?string $scopeName = null;
     public string $hasWorkspace;
 
     public function toEntity(): Entity
@@ -46,6 +47,9 @@ class Type extends Model
         }
         if (!is_null($this->dataModelGroup)) {
             $entity->setProperty("dataModelGroup", $this->dataModelGroup);
+        }
+        if (!is_null($this->scopeName)) {
+            $entity->setProperty("scopeName", $this->scopeName);
         }
         $entity->setRelationship("hasWorkspace", $this->hasWorkspace);
         return $entity;
@@ -74,7 +78,9 @@ class Type extends Model
         if ($entity->propertyExists("dataModelGroup")) {
             $this->dataModelGroup = $entity->getProperty("dataModelGroup");
         }
-        $this->dataModelGroup = $entity->getProperty("dataModelGroup");
+        if ($entity->propertyExists("scopeName")) {
+            $this->scopeName = $entity->getProperty("scopeName");
+        }
         $this->hasWorkspace = $entity->getRelationship("hasWorkspace");
     }
 }
