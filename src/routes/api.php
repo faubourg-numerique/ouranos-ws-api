@@ -265,6 +265,7 @@ API::router()->mount("/api", function () {
             API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\RoleController@update");
             API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\RoleController@destroy");
             API::router()->post("/([^/]+)/synchronize", "Modules\\DSC\\Controllers\\RoleController@synchronize");
+            API::router()->post("/([^/]+)/synchronize-keyrock", "Modules\\DSC\\Controllers\\RoleController@synchronizeKeyrock");
         });
     });
 
