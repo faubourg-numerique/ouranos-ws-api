@@ -212,6 +212,7 @@ API::router()->mount("/api", function () {
             API::router()->get("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@show");
             API::router()->put("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@update");
             API::router()->delete("/([^/]+)", "Modules\\DSC\\Controllers\\ContractDetailController@destroy");
+            API::router()->post("/([^/]+)/synchronize", "Modules\\DSC\\Controllers\\ContractDetailController@synchronize");
         });
 
         API::router()->mount("/data-services", function () {
