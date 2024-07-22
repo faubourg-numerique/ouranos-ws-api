@@ -599,7 +599,9 @@ final class Validation
             new Rules\Key("defaultDataModelUrl", new Rules\Nullable(self::urlValidator()), false),
             new Rules\Key("temporalServices", self::urnArrayValidator(), true),
             new Rules\Key("hasService", self::urnValidator(), true),
-            new Rules\Key("enableOffers", self::booleanValidator(), true)
+            new Rules\Key("enableOffers", self::booleanValidator(), true),
+            new Rules\Key("hasIdentityManager", new Rules\Nullable(self::urnValidator()), false),
+            new Rules\Key("hasIdentityManagerGrant", new Rules\Nullable(self::urnValidator()), false)
         ];
 
         if ($data["enableOffers"]) {

@@ -25,6 +25,8 @@ class Workspace extends Model
     public bool $enableOffers;
     public ?string $hasAuthorizationRegistry = null;
     public ?string $hasAuthorizationRegistryGrant = null;
+    public ?string $hasIdentityManager = null;
+    public ?string $hasIdentityManagerGrant = null;
 
     public function getContextUrl(): string
     {
@@ -59,6 +61,12 @@ class Workspace extends Model
         if (!is_null($this->hasAuthorizationRegistryGrant)) {
             $entity->setRelationship("hasAuthorizationRegistryGrant", $this->hasAuthorizationRegistryGrant);
         }
+        if (!is_null($this->hasIdentityManager)) {
+            $entity->setRelationship("hasIdentityManager", $this->hasIdentityManager);
+        }
+        if (!is_null($this->hasIdentityManagerGrant)) {
+            $entity->setRelationship("hasIdentityManagerGrant", $this->hasIdentityManagerGrant);
+        }
         return $entity;
     }
 
@@ -86,6 +94,12 @@ class Workspace extends Model
         }
         if ($entity->relationshipExists("hasAuthorizationRegistryGrant")) {
             $this->hasAuthorizationRegistryGrant = $entity->getRelationship("hasAuthorizationRegistryGrant");
+        }
+        if ($entity->relationshipExists("hasIdentityManager")) {
+            $this->hasIdentityManager = $entity->getRelationship("hasIdentityManager");
+        }
+        if ($entity->relationshipExists("hasIdentityManagerGrant")) {
+            $this->hasIdentityManagerGrant = $entity->getRelationship("hasIdentityManagerGrant");
         }
     }
 }
