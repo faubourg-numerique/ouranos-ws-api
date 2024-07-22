@@ -19,6 +19,7 @@
         "defuse/php-encryption": "^2.3",
         "archtechx/enums": "^0.3.0",
         "faubourg-numerique/ishare-tools-for-i4trust-php": "^1.0",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "guzzlehttp/guzzle": "^7.0"
     }
 }
