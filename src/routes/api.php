@@ -101,6 +101,12 @@ API::router()->mount("/api", function () {
     });
 
     API::router()->mount("/workspace/([^/]+)", function () {
+        API::router()->mount("/users", function () {
+            API::router()->get("/", "Controllers\\UserController@index");
+            API::router()->post("/([^/]+)/roles/([^/]+)", "Controllers\\UserController@assignRole");
+            API::router()->delete("/([^/]+)/roles/([^/]+)", "Controllers\\UserController@removeRole");
+        });
+
         API::router()->mount("/data-model", function () {
             API::router()->post("/generate", "Controllers\\DataModelController@generate");
             API::router()->post("/auto-discover", "Controllers\\DataModelController@autoDiscover");
