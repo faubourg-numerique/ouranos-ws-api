@@ -155,6 +155,14 @@ API::router()->mount("/api", function () {
             API::router()->post("/([^/]+)/execute", "Modules\\WoT\\Controllers\\WoTActionController@execute");
         });
 
+        API::router()->mount("/wot-action-input-properties", function () {
+            API::router()->get("/", "Modules\\WoT\\Controllers\\WoTActionInputPropertyController@index");
+            API::router()->post("/", "Modules\\WoT\\Controllers\\WoTActionInputPropertyController@store");
+            API::router()->get("/([^/]+)", "Modules\\WoT\\Controllers\\WoTActionInputPropertyController@show");
+            API::router()->put("/([^/]+)", "Modules\\WoT\\Controllers\\WoTActionInputPropertyController@update");
+            API::router()->delete("/([^/]+)", "Modules\\WoT\\Controllers\\WoTActionInputPropertyController@destroy");
+        });
+
         API::router()->mount("/wot-properties", function () {
             API::router()->get("/", "Modules\\WoT\\Controllers\\WoTPropertyController@index");
             API::router()->post("/", "Modules\\WoT\\Controllers\\WoTPropertyController@store");
