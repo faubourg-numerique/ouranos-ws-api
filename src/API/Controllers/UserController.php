@@ -186,8 +186,16 @@ class UserController extends Controller
         }
 
         if (!$roleId) {
-            API::response()->setStatusCode(HttpResponseStatusCodes::HTTP_NOT_FOUND);
-            API::response()->send();
+            $response = $idm->post("v1/applications/{$identityManagerGrant->clientId}/roles", [
+                "json" => [
+                    "role" => [
+                        "name" => $roleName
+                    ]
+                ]
+            ]);
+
+            $data = json_decode($response->getBody(), true);
+            $roleId = $data["role"]["id"];
         }
 
         $idm->post("v1/applications/{$identityManagerGrant->clientId}/users/{$userId}/roles/{$roleId}", [
