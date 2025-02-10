@@ -24,6 +24,7 @@ use Core\API;
 use Core\Controller;
 use Core\HttpRequestMethods;
 use Core\HttpResponseStatusCodes;
+use Exception;
 
 class UserController extends Controller
 {
@@ -113,7 +114,11 @@ class UserController extends Controller
 
         foreach ($users as &$user) {
             $user["roles"] = [];
-            $response = $idm->get("v1/applications/{$identityManagerGrant->clientId}/users/{$user["id"]}/roles");
+            try {
+                $response = $idm->get("v1/applications/{$identityManagerGrant->clientId}/users/{$user["id"]}/roles");
+            } catch(Exception $exception) {
+                continue;
+            }
             $data = json_decode($response->getBody(), true);
             $roleUserAssignments = $data["role_user_assignments"];
             foreach ($roleUserAssignments as $roleUserAssignment) {
