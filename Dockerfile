@@ -1,9 +1,19 @@
+FROM composer:latest AS composer
+
+WORKDIR /app/
+
+COPY ./src/composer.* ./
+
+RUN composer install
+
 FROM php:8.1-apache
 
 COPY ./virtual-hosts/api.conf /etc/apache2/sites-available/api.conf
 COPY ./virtual-hosts/data-models.conf /etc/apache2/sites-available/data-models.conf
 
 COPY ./src /var/www/api
+
+COPY --from=composer /app/vendor /var/www/api/vendor
 
 RUN a2enmod rewrite && \
     a2dissite 000-default && \
