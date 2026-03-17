@@ -55,10 +55,7 @@ final class Validation
     {
         return new Rules\AllOf(
             new Rules\StringType(),
-            new Rules\NotBlank(),
-            new Rules\Alnum("_"),
-            new Rules\Lowercase(),
-            new Rules\Length(1, 50)
+            new Rules\NotBlank()
         );
     }
 
@@ -697,29 +694,17 @@ final class Validation
         $validator->assert($data);
     }
 
-    public static function validateWoTAction(mixed $data): void
-    {
-    }
+    public static function validateWoTAction(mixed $data): void {}
 
-    public static function validateWoTProperty(mixed $data): void
-    {
-    }
+    public static function validateWoTProperty(mixed $data): void {}
 
-    public static function validateRouting(mixed $data): void
-    {
-    }
+    public static function validateRouting(mixed $data): void {}
 
-    public static function validateRoutingOperation(mixed $data): void
-    {
-    }
+    public static function validateRoutingOperation(mixed $data): void {}
 
-    public static function validateRoutingOperationControl(mixed $data): void
-    {
-    }
+    public static function validateRoutingOperationControl(mixed $data): void {}
 
-    public static function validateWoTThingDescription(mixed $data): void
-    {
-    }
+    public static function validateWoTThingDescription(mixed $data): void {}
 
     public static function identifierValidator(): Rules\AllOf
     {
