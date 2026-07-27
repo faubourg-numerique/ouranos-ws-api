@@ -283,6 +283,14 @@ API::router()->mount("/api", function () {
         });
     });
 
+    API::router()->mount("/wot-groups", function () {
+        API::router()->get("/", "Modules\\WoT\\Controllers\\WoTGroupController@index");
+        API::router()->post("/", "Modules\\WoT\\Controllers\\WoTGroupController@store");
+        API::router()->get("/([^/]+)", "Modules\\WoT\\Controllers\\WoTGroupController@show");
+        API::router()->put("/([^/]+)", "Modules\\WoT\\Controllers\\WoTGroupController@update");
+        API::router()->delete("/([^/]+)", "Modules\\WoT\\Controllers\\WoTGroupController@destroy");
+    });
+
     API::router()->mount("/proxies", function () {
         API::router()->mount("/authorization-registry", function () {
             API::router()->post("/create-policy", "Modules\\DSC\\Controllers\\AuthorizationRegistryProxyController@createPolicy");
