@@ -291,6 +291,14 @@ API::router()->mount("/api", function () {
         API::router()->delete("/([^/]+)", "Modules\\WoT\\Controllers\\WoTGroupController@destroy");
     });
 
+    API::router()->mount("/wot-thing-descriptions", function () {
+        API::router()->get("/", "Modules\\WoT\\Controllers\\WoTThingDescriptionRootController@index");
+        API::router()->post("/", "Modules\\WoT\\Controllers\\WoTThingDescriptionRootController@store");
+        API::router()->get("/([^/]+)", "Modules\\WoT\\Controllers\\WoTThingDescriptionRootController@show");
+        API::router()->put("/([^/]+)", "Modules\\WoT\\Controllers\\WoTThingDescriptionRootController@update");
+        API::router()->delete("/([^/]+)", "Modules\\WoT\\Controllers\\WoTThingDescriptionRootController@destroy");
+    });
+
     API::router()->mount("/proxies", function () {
         API::router()->mount("/authorization-registry", function () {
             API::router()->post("/create-policy", "Modules\\DSC\\Controllers\\AuthorizationRegistryProxyController@createPolicy");
