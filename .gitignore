@@ -4,3 +4,4 @@
 !/src/API/Modules/.gitkeep
 vendor/
 .env
+.DS_Store
